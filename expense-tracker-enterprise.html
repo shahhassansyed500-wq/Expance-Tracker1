@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Expense Tracker Enterprise</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --emerald: #059669;
+    --emerald-light: #10b981;
+    --emerald-dark: #047857;
+    --emerald-pale: #d1fae5;
+    --dark: #111827;
+    --dark-2: #1f2937;
+    --grey: #374151;
+    --grey-light: #6b7280;
+    --border: #e5e7eb;
+    --white: #ffffff;
+    --off-white: #f9fafb;
+    --accent: #f0fdf4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--dark);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, .logo { font-family: 'Manrope', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 68px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: box-shadow .3s;
+  }
+  nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,.07); }
+
+  .logo {
+    font-size: 1.1rem; font-weight: 800; color: var(--dark);
+    letter-spacing: -.02em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .logo-icon {
+    width: 34px; height: 34px;
+    border-radius: 10px; overflow: hidden;
+  }
+  .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: .88rem; font-weight: 500; color: var(--grey);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--emerald); }
+
+  .btn-access {
+    background: var(--emerald); color: white;
+    border: none; padding: 10px 22px;
+    border-radius: 8px;
+    font-size: .88rem; font-weight: 600; cursor: pointer; font-family: 'Manrope', sans-serif;
+    transition: background .2s, transform .15s, box-shadow .2s;
+    box-shadow: 0 2px 12px rgba(5,150,105,.3);
+  }
+  .btn-access:hover {
+    background: var(--emerald-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(5,150,105,.4);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 60px;
+    padding: 120px 5% 80px;
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 40%, #f9fafb 100%);
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(16,185,129,.12) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--emerald-pale); color: var(--emerald-dark);
+    padding: 6px 14px; border-radius: 100px;
+    font-size: .78rem; font-weight: 600; letter-spacing: .04em;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero-tag span { width: 6px; height: 6px; background: var(--emerald); border-radius: 50%; }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    font-weight: 800; line-height: 1.08;
+    letter-spacing: -.03em; color: var(--dark);
+    margin-bottom: 22px;
+  }
+  .hero h1 em { color: var(--emerald); font-style: normal; }
+
+  .hero p {
+    font-size: 1.05rem; color: var(--grey-light);
+    line-height: 1.75; max-width: 480px; margin-bottom: 36px;
+  }
+
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+  .btn-primary {
+    background: var(--emerald); color: white;
+    border: none; padding: 14px 28px;
+    border-radius: 10px;
+    font-size: .95rem; font-weight: 700; cursor: pointer; font-family: 'Manrope', sans-serif;
+    transition: all .2s;
+    box-shadow: 0 4px 20px rgba(5,150,105,.35);
+  }
+  .btn-primary:hover { background: var(--emerald-dark); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(5,150,105,.4); }
+
+  .btn-ghost {
+    background: transparent; color: var(--dark);
+    border: 1.5px solid var(--border); padding: 13px 28px;
+    border-radius: 10px;
+    font-size: .95rem; font-weight: 600; cursor: pointer; font-family: 'Manrope', sans-serif;
+    transition: all .2s;
+  }
+  .btn-ghost:hover { border-color: var(--emerald); color: var(--emerald); }
+
+  .hero-stats {
+    display: flex; gap: 32px; margin-top: 44px;
+    padding-top: 32px; border-top: 1px solid var(--border);
+  }
+  .stat-item h3 { font-size: 1.7rem; font-weight: 800; color: var(--dark); letter-spacing: -.02em; }
+  .stat-item p { font-size: .8rem; color: var(--grey-light); margin-top: 3px; }
+
+  /* Dashboard Mockup */
+  .hero-visual { position: relative; }
+
+  .dashboard-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 24px 80px rgba(0,0,0,.12), 0 4px 16px rgba(0,0,0,.06);
+    overflow: hidden;
+    animation: floatCard 6s ease-in-out infinite;
+  }
+  @keyframes floatCard { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+  .dash-header {
+    background: var(--dark); padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .dash-header span { font-family: 'Manrope', sans-serif; font-size: .85rem; font-weight: 600; color: white; }
+  .dash-dots { display: flex; gap: 6px; }
+  .dash-dots span { width: 10px; height: 10px; border-radius: 50%; }
+  .dash-dots span:nth-child(1){background:#ff5f57}
+  .dash-dots span:nth-child(2){background:#febc2e}
+  .dash-dots span:nth-child(3){background:#28c840}
+
+  .dash-body { padding: 22px; }
+  .dash-balance { margin-bottom: 20px; }
+  .dash-balance .label { font-size: .75rem; color: var(--grey-light); text-transform: uppercase; letter-spacing: .06em; }
+  .dash-balance .amount { font-family: 'Manrope', sans-serif; font-size: 2rem; font-weight: 800; color: var(--dark); }
+
+  .dash-chart {
+    height: 80px; background: linear-gradient(135deg, #f0fdf4, #d1fae5);
+    border-radius: 12px; margin-bottom: 16px;
+    display: flex; align-items: flex-end; padding: 10px 12px; gap: 6px;
+  }
+  .bar {
+    flex: 1; border-radius: 4px 4px 0 0;
+    background: var(--emerald); opacity: .7; transition: opacity .2s;
+  }
+  .bar:hover { opacity: 1; }
+  .bar.active { background: var(--emerald); opacity: 1; }
+
+  .dash-transactions { display: flex; flex-direction: column; gap: 10px; }
+  .tx-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 12px; background: var(--off-white); border-radius: 10px;
+  }
+  .tx-left { display: flex; align-items: center; gap: 10px; }
+  .tx-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--emerald-pale); display: grid; place-items: center; font-size: .9rem; }
+  .tx-name { font-size: .82rem; font-weight: 500; color: var(--dark); }
+  .tx-date { font-size: .72rem; color: var(--grey-light); }
+  .tx-amount { font-family: 'Manrope', sans-serif; font-size: .85rem; font-weight: 700; }
+  .tx-amount.neg { color: #ef4444; }
+  .tx-amount.pos { color: var(--emerald); }
+
+  .float-badge {
+    position: absolute; bottom: -20px; left: -30px;
+    background: white; padding: 12px 18px; border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.1);
+    display: flex; align-items: center; gap: 10px;
+    animation: floatBadge 5s ease-in-out infinite;
+  }
+  @keyframes floatBadge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  .float-badge .icon { font-size: 1.4rem; }
+  .float-badge .text { font-size: .75rem; font-weight: 500; color: var(--grey); }
+  .float-badge .text strong { display: block; font-family: 'Manrope', sans-serif; font-size: .85rem; color: var(--dark); }
+
+  /* ── SHOWCASE ── */
+  .showcase { background: var(--white); text-align: center; border-bottom: 1px solid var(--border); }
+  .showcase-grid {
+    display: flex; gap: 20px; overflow-x: auto; padding: 40px 5% 60px;
+    scrollbar-width: none; -ms-overflow-style: none;
+    justify-content: flex-start;
+  }
+  @media (min-width: 1200px) { .showcase-grid { justify-content: center; } }
+  .showcase-grid::-webkit-scrollbar { display: none; }
+  .showcase-img {
+    flex: 0 0 230px; border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.1);
+    transition: transform .3s ease;
+    border: 1px solid var(--border);
+  }
+  .showcase-img:hover { transform: translateY(-10px); }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 5%; }
+
+  .section-tag {
+    display: inline-block;
+    font-size: .75rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--emerald);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 800; letter-spacing: -.02em; color: var(--dark);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--grey-light);
+    max-width: 560px; line-height: 1.75;
+  }
+
+  /* ── FEATURES ── */
+  #features { background: var(--off-white); }
+
+  .features-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px; margin-top: 56px;
+  }
+
+  .feature-card {
+    background: white; border-radius: 16px; padding: 32px;
+    border: 1px solid var(--border);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+    cursor: default;
+  }
+  .feature-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.08);
+    border-color: var(--emerald-pale);
+  }
+
+  .feature-icon {
+    width: 52px; height: 52px; background: var(--accent);
+    border-radius: 14px; display: grid; place-items: center;
+    font-size: 1.5rem; margin-bottom: 20px;
+    border: 1px solid var(--emerald-pale);
+  }
+
+  .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+  .feature-card p { font-size: .9rem; color: var(--grey-light); line-height: 1.65; }
+
+  /* ── INTEGRATIONS ── */
+  #integrations { background: white; }
+  .int-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 56px; }
+
+  .int-box {
+    background: var(--off-white); border-radius: 20px; padding: 36px;
+    border: 1px solid var(--border);
+    transition: border-color .25s;
+  }
+  .int-box:hover { border-color: var(--emerald); }
+
+  .int-box h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
+  .int-box p { font-size: .92rem; color: var(--grey-light); line-height: 1.7; margin-bottom: 20px; }
+  .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    padding: 5px 12px; background: white; border: 1px solid var(--border);
+    border-radius: 100px; font-size: .78rem; font-weight: 500; color: var(--grey);
+  }
+
+  /* ── PRICING ── */
+  #pricing { background: var(--dark); }
+  #pricing .section-title { color: white; }
+  #pricing .section-sub { color: #9ca3af; }
+  #pricing .section-tag { color: var(--emerald-light); }
+
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 24px; margin-top: 56px;
+  }
+
+  .price-card {
+    background: #1f2937; border-radius: 20px; padding: 36px;
+    border: 1px solid #374151;
+    transition: transform .25s, border-color .25s;
+    position: relative; overflow: hidden;
+  }
+  .price-card:hover { transform: translateY(-6px); border-color: var(--emerald); }
+  .price-card.featured { background: var(--emerald); border-color: var(--emerald); }
+  .price-card.featured::before {
+    content: 'Most Popular';
+    position: absolute; top: 16px; right: 16px;
+    background: rgba(255,255,255,.2); color: white;
+    padding: 4px 12px; border-radius: 100px; font-size: .72rem; font-weight: 600;
+  }
+
+  .price-tier { font-size: .8rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: #9ca3af; margin-bottom: 14px; }
+  .price-card.featured .price-tier { color: rgba(255,255,255,.75); }
+
+  .price-amount { font-family: 'Manrope', sans-serif; font-size: 2.8rem; font-weight: 800; color: white; line-height: 1; }
+  .price-amount span { font-size: 1rem; font-weight: 400; color: #9ca3af; }
+  .price-card.featured .price-amount span { color: rgba(255,255,255,.7); }
+
+  .price-desc { font-size: .88rem; color: #6b7280; margin: 14px 0 24px; line-height: 1.6; }
+  .price-card.featured .price-desc { color: rgba(255,255,255,.8); }
+
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+  .price-features li { font-size: .88rem; color: #9ca3af; display: flex; gap: 10px; align-items: flex-start; }
+  .price-features li::before { content: '✓'; color: var(--emerald-light); font-weight: 700; flex-shrink: 0; }
+  .price-card.featured .price-features li { color: rgba(255,255,255,.85); }
+  .price-card.featured .price-features li::before { color: white; }
+
+  .btn-price {
+    width: 100%; padding: 12px; border-radius: 10px;
+    font-family: 'Manrope', sans-serif; font-size: .9rem; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+    border: 1.5px solid #374151; background: transparent; color: white;
+  }
+  .btn-price:hover { border-color: var(--emerald); color: var(--emerald-light); }
+  .price-card.featured .btn-price {
+    background: white; color: var(--emerald-dark); border-color: white;
+  }
+  .price-card.featured .btn-price:hover { background: var(--emerald-pale); }
+
+  /* ── DEMO ── */
+  #demo { background: var(--accent); }
+
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 56px; }
+  .demo-info h3 { font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; }
+  .demo-info p { font-size: .95rem; color: var(--grey-light); line-height: 1.75; margin-bottom: 24px; }
+  .demo-points { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .demo-points li { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--grey); }
+  .demo-points li::before { content: '→'; color: var(--emerald); font-weight: 700; }
+
+  .demo-form { background: white; border-radius: 20px; padding: 36px; box-shadow: 0 8px 40px rgba(0,0,0,.06); }
+  .demo-form h3 { font-family: 'Manrope', sans-serif; font-size: 1.2rem; font-weight: 700; margin-bottom: 24px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: .82rem; font-weight: 500; color: var(--grey); margin-bottom: 6px; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 11px 14px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-family: 'Inter', sans-serif; font-size: .9rem; color: var(--dark);
+    transition: border-color .2s; background: var(--off-white);
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none; border-color: var(--emerald);
+    background: white;
+  }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .btn-submit {
+    width: 100%; padding: 13px; background: var(--emerald); color: white;
+    border: none; border-radius: 10px;
+    font-family: 'Manrope', sans-serif; font-size: .95rem; font-weight: 700;
+    cursor: pointer; transition: all .2s;
+    box-shadow: 0 4px 16px rgba(5,150,105,.3); margin-top: 8px;
+  }
+  .btn-submit:hover { background: var(--emerald-dark); transform: translateY(-1px); }
+
+  /* ── DEVELOPER SPOTLIGHT ── */
+  #developer { background: white; }
+
+  .dev-card {
+    background: linear-gradient(135deg, var(--dark) 0%, #1f2937 100%);
+    border-radius: 24px; padding: 56px; display: grid;
+    grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+  }
+
+  .dev-tag { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--emerald-light); margin-bottom: 12px; }
+  .dev-card h2 { font-size: 2.2rem; font-weight: 800; color: white; letter-spacing: -.02em; margin-bottom: 6px; }
+  .dev-title { font-size: 1rem; color: #6b7280; margin-bottom: 22px; }
+  .dev-bio { font-size: .92rem; color: #9ca3af; line-height: 1.75; margin-bottom: 28px; }
+
+  .tech-stack { display: flex; gap: 10px; flex-wrap: wrap; }
+  .tech-pill {
+    padding: 6px 14px; border-radius: 100px;
+    border: 1px solid #374151; font-size: .8rem; font-weight: 500;
+    color: #9ca3af; display: flex; align-items: center; gap: 6px;
+    transition: border-color .2s, color .2s;
+  }
+  .tech-pill:hover { border-color: var(--emerald); color: var(--emerald-light); }
+  .tech-pill span { width: 8px; height: 8px; border-radius: 50%; background: var(--emerald); }
+
+  .dev-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .metric-box { background: #1f2937; border-radius: 16px; padding: 24px; border: 1px solid #374151; }
+  .metric-box h4 { font-family: 'Manrope', sans-serif; font-size: 1.8rem; font-weight: 800; color: white; }
+  .metric-box p { font-size: .8rem; color: #6b7280; margin-top: 4px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark); padding: 60px 5% 32px;
+    border-top: 1px solid #1f2937;
+  }
+  .footer-grid {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 48px;
+  }
+  .footer-brand p { font-size: .88rem; color: #6b7280; line-height: 1.7; margin-top: 14px; max-width: 280px; }
+  .footer-col { display: flex; align-items: center; gap: 32px; }
+  .footer-col h4 { font-family: 'Manrope', sans-serif; font-size: .9rem; font-weight: 700; color: white; margin-bottom: 0; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: row; gap: 24px; }
+  .footer-col a { font-size: .85rem; color: #6b7280; text-decoration: none; transition: color .2s; }
+  .footer-col a:hover { color: var(--emerald-light); }
+  .footer-bottom {
+    border-top: 1px solid #1f2937; padding-top: 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .footer-bottom p { font-size: .82rem; color: #4b5563; }
+  .footer-bottom a { color: var(--emerald-light); text-decoration: none; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,.6); backdrop-filter: blur(6px);
+    display: none; place-items: center;
+  }
+  .modal-overlay.open { display: grid; }
+
+  .modal {
+    background: white; border-radius: 24px; padding: 48px 44px;
+    width: 90%; max-width: 440px;
+    box-shadow: 0 40px 100px rgba(0,0,0,.2);
+    animation: modalIn .35s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes modalIn { from{transform:scale(.85);opacity:0} to{transform:scale(1);opacity:1} }
+
+  .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
+  .modal-header h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.02em; font-family: 'Manrope', sans-serif; }
+  .modal-header p { font-size: .85rem; color: var(--grey-light); margin-top: 4px; }
+  .modal-close {
+    width: 32px; height: 32px; border-radius: 8px; background: var(--off-white);
+    border: none; cursor: pointer; font-size: 1.1rem; color: var(--grey);
+    display: grid; place-items: center; transition: background .2s;
+    flex-shrink: 0;
+  }
+  .modal-close:hover { background: var(--border); }
+
+  .modal .form-group input {
+    padding: 13px 14px; background: var(--off-white);
+  }
+  .modal .form-group label { font-weight: 600; }
+
+  .modal-divider {
+    text-align: center; font-size: .82rem; color: var(--grey-light);
+    margin: 20px 0; position: relative;
+  }
+  .modal-divider::before, .modal-divider::after {
+    content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border);
+  }
+  .modal-divider::before { left: 0; }
+  .modal-divider::after { right: 0; }
+
+  .modal-footer-text { text-align: center; font-size: .82rem; color: var(--grey-light); margin-top: 16px; }
+  .modal-footer-text a { color: var(--emerald); text-decoration: none; font-weight: 500; }
+
+  /* Success Toast */
+  .toast {
+    position: fixed; bottom: 28px; right: 28px; z-index: 2000;
+    background: var(--dark); color: white; padding: 14px 22px;
+    border-radius: 12px; font-size: .9rem; font-weight: 500;
+    box-shadow: 0 12px 40px rgba(0,0,0,.2);
+    display: flex; align-items: center; gap: 10px;
+    transform: translateY(80px); opacity: 0;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1), opacity .3s;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast .t-icon { font-size: 1.2rem; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero-visual { display: none; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .int-grid, .demo-grid, .dev-card { grid-template-columns: 1fr; }
+    .footer-grid { flex-direction: column; align-items: flex-start; gap: 32px; }
+    .footer-col { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-col ul { flex-direction: column; gap: 10px; }
+    .nav-links { display: none; }
+    #benefit-driven { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+  }
+  @media (max-width: 600px) {
+    .hero-stats { flex-wrap: wrap; gap: 20px; }
+    .footer-grid { grid-template-columns: 1fr; }
+    .modal { padding: 32px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="logo">
+    <div class="logo-icon">
+      <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e8/a2/d4/e8a2d4c1-5a63-c373-d652-3931cdd1038a/Placeholder.mill/200x200bb-75.webp" alt="Expense Tracker Logo">
+    </div>
+    Expense Tracker Enterprise
+  </div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="btn-access" onclick="openModal()">Free Download</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <h1>Take control of your<br><em>Money</em> like never Before!</h1>
+    <div class="hero-stats">
+      <div class="stat-item"><h3>10K+</h3><p>Verified Users</p></div>
+      <div class="stat-item"><h3>150+</h3><p>Currencies</p></div>
+      <div class="stat-item"><h3>5.0★</h3><p>App Rating</p></div>
+      <div class="stat-item"><h3>99.9%</h3><p>Uptime SLA</p></div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="dashboard-card">
+      <div class="dash-header">
+        <div class="dash-dots"><span></span><span></span><span></span></div>
+        <span>Dashboard · Live</span>
+        <span style="font-size:.75rem;color:#9ca3af">May 2026</span>
+      </div>
+      <div class="dash-body">
+        <div class="dash-balance">
+          <div class="label">Total Balance</div>
+          <div class="amount">$13,793.30</div>
+        </div>
+        <div class="dash-chart">
+          <div class="bar" style="height:40%"></div>
+          <div class="bar" style="height:60%"></div>
+          <div class="bar" style="height:45%"></div>
+          <div class="bar" style="height:80%"></div>
+          <div class="bar active" style="height:95%"></div>
+          <div class="bar" style="height:55%"></div>
+          <div class="bar" style="height:70%"></div>
+        </div>
+        <div class="dash-transactions">
+          <div class="tx-item">
+            <div class="tx-left">
+              <div class="tx-icon">🏪</div>
+              <div><div class="tx-name">Greensaction</div><div class="tx-date">May 04, 2026</div></div>
+            </div>
+            <div class="tx-amount pos">+$1,200.00</div>
+          </div>
+          <div class="tx-item">
+            <div class="tx-left">
+              <div class="tx-icon">🛒</div>
+              <div><div class="tx-name">Groation Market</div><div class="tx-date">May 03, 2026</div></div>
+            </div>
+            <div class="tx-amount neg">-$1,220.00</div>
+          </div>
+          <div class="tx-item">
+            <div class="tx-left">
+              <div class="tx-icon">✈️</div>
+              <div><div class="tx-name">Travel Expense</div><div class="tx-date">May 02, 2026</div></div>
+            </div>
+            <div class="tx-amount neg">-$340.00</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="float-badge">
+      <div class="icon">📈</div>
+      <div class="text"><strong>AI Forecast</strong>Save $480 this month</div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="showcase" id="about">
+  <div class="section-tag">Visual Experience</div>
+  <h2 class="section-title">Designed for clarity.</h2>
+  <p class="section-sub" style="margin: 0 auto;">See how Expense Tracker Enterprise simplifies complex financial data into beautiful, actionable insights.</p>
+  <p class="section-sub" style="margin: 24px auto 0;">Managing your finances doesn't have to be complicated. Whether you're tracking daily expenses, setting budgets, or planning for future goals, Expense Tracker is designed to make your life easier. With a clean, user-friendly interface and powerful features, you can finally take full control of your money – without any of the hassle.</p>
+  <div class="showcase-grid">
+    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a1/b3/91/a1b391be-c131-c15d-705c-56bd5e166ffe/Group_1004.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 1">
+    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/97/d1/38/97d138d7-bedc-663d-a699-81df45b9bea4/Group_1024.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 2">
+    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/aa/88/9a/aa889a86-e77d-cc82-f482-7d4ea4e29875/Group_1006.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 3">
+    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3d/ae/95/3dae958d-ab93-40bd-f52c-85a8b8813e0f/Group_1028.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 4">
+    <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/85/1e/2b/851e2b2a-a26b-2085-bf42-cf367b0b4377/Group_1008.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 5">
+  </div>
+</section>
+
+<!-- BENEFIT-DRIVEN SECTION -->
+<section id="benefit-driven">
+  <div class="benefit-content">
+    <div class="section-tag">Benefit-Driven</div>
+    <h2 class="section-title">Designed for You, by People Like You</h2>
+    <p class="section-sub">We understand that managing money can feel overwhelming. That's why we built Expense Tracker to be simple, fast, and enjoyable to use. Whether you're a budgeting pro or just starting to keep track.</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="section-tag">Global Features</div>
+  <h2 class="section-title">Everything your finances<br>need, worldwide.</h2>
+  <p class="section-sub">Built for individuals, teams, and enterprises managing money across borders with precision and clarity.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Effortless Tracking</h3>
+      <p>Add and categorize your expenses in seconds. Stay on top of your spending effortlessly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>Beautiful Insights</h3>
+      <p>Get a clear picture of where your money is going with beautifully designed charts and graphs.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏦</div>
+      <h3>Unified Accounts</h3>
+      <p>Easily add bank accounts and credit cards so you can track all your finances in one place.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎯</div>
+      <h3>Monthly Budgets</h3>
+      <p>Set monthly budgets to keep your spending on track.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">☁️</div>
+      <h3>Multi-Device Sync</h3>
+      <p>With iCloud sync (available via upgrade), your financial data is always at your fingertips, whether you're on your phone, tablet, or desktop.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-tag">Pricing</div>
+  <h2 class="section-title">Transparent pricing.<br>No surprises.</h2>
+  <p class="section-sub">From solo finance tracking to enterprise-scale deployments. Pick the plan that fits your world.</p>
+  <p class="section-sub" style="margin-top: 20px; font-weight: 500; color: var(--emerald-light);">Upgrade for Premium Features! Unlock the full potential of Expense Tracker by upgrading to the premium version. Get access to advanced analytics, unlimited account tracking, and seamless iCloud sync so you can view and manage your finances across all your devices.</p>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-tier">Starter</div>
+      <div class="price-amount">Free<span> / forever</span></div>
+      <p class="price-desc">Perfect for individuals starting their financial clarity journey.</p>
+      <ul class="price-features">
+        <li>Basic expense tracking</li>
+        <li>Up to 3 accounts linked</li>
+        <li>5 currencies supported</li>
+        <li>Monthly reports</li>
+        <li>Mobile app access</li>
+      </ul>
+      <button class="btn-price" onclick="openModal()">Get Started Free</button>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tier">Pro</div>
+      <div class="price-amount">$9.99<span> / month</span></div>
+      <p class="price-desc">For professionals and families who demand deeper insights.</p>
+      <ul class="price-features">
+        <li>Habit tracking & scoring</li>
+        <li>Unlimited accounts</li>
+        <li>150+ currencies</li>
+        <li>AI-driven analytics</li>
+        <li>Detailed weekly reports</li>
+        <li>Priority support</li>
+      </ul>
+      <button class="btn-price" onclick="openModal()">Start Pro Trial</button>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Enterprise</div>
+      <div class="price-amount">Custom<span> pricing</span></div>
+      <p class="price-desc">Tailored solutions for large teams and global organizations.</p>
+      <ul class="price-features">
+        <li>Everything in Pro</li>
+        <li>Custom ERP integrations</li>
+        <li>Dedicated SLA & support</li>
+        <li>SSO & LDAP support</li>
+        <li>Audit logs & compliance</li>
+        <li>Custom branding</li>
+      </ul>
+      <button class="btn-price" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Talk to Sales</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo" style="color:white">
+        <div class="logo-icon"><img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/e8/a2/d4/e8a2d4c1-5a63-c373-d652-3931cdd1038a/Placeholder.mill/200x200bb-75.webp" alt="Expense Tracker Logo"></div>
+        Expense Tracker Enterprise
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="mailto:saif@thepenguin.tech">Contact: saif@thepenguin.tech</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="signInModal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your Expense Tracker account</p>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="emailInput" placeholder="you@company.com">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="passwordInput" placeholder="••••••••">
+    </div>
+    <button class="btn-submit" onclick="handleSignIn()">Sign In →</button>
+    <div class="modal-divider">or</div>
+    <button class="btn-ghost" style="width:100%;justify-content:center;display:flex;align-items:center;gap:8px;padding:12px" onclick="showToast('Google Sign-In coming soon!')">
+      <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Continue with Google
+    </button>
+    <p class="modal-footer-text">Don't have an account? <a href="#" onclick="showToast('Registration coming soon!')">Create one free</a></p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <span class="t-icon">✅</span>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Modal
+  function openModal() {
+    document.getElementById('signInModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('signInModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('signInModal')) closeModal();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Sign in
+  function handleSignIn() {
+    const email = document.getElementById('emailInput').value.trim();
+    const pw = document.getElementById('passwordInput').value;
+    if (!email || !pw) { showToast('Please fill in all fields ⚠️'); return; }
+    closeModal();
+    showToast('Welcome back! Redirecting to dashboard…');
+  }
+
+  // Toast
+  let toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+  }
+</script>
+</body>
+</html>
