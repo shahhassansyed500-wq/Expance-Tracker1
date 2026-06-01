@@ -40,7 +40,7 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 5%;
-    height: 68px;
+    height: 80px;
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
@@ -49,28 +49,28 @@
   nav.scrolled { box-shadow: 0 4px 24px rgba(0,0,0,.07); }
 
   .logo {
-    font-size: 1.1rem; font-weight: 800; color: var(--dark);
+    font-size: 1.45rem; font-weight: 800; color: var(--dark);
     letter-spacing: -.02em;
     display: flex; align-items: center; gap: 10px;
   }
   .logo-icon {
-    width: 34px; height: 34px;
+    width: 40px; height: 40px;
     border-radius: 10px; overflow: hidden;
   }
   .logo-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a {
-    font-size: .88rem; font-weight: 500; color: var(--grey);
+    font-size: 1.15rem; font-weight: 500; color: var(--grey);
     text-decoration: none; transition: color .2s;
   }
   .nav-links a:hover { color: var(--emerald); }
 
   .btn-access {
     background: var(--emerald); color: white;
-    border: none; padding: 10px 22px;
+    border: none; padding: 12px 26px;
     border-radius: 8px;
-    font-size: .88rem; font-weight: 600; cursor: pointer; font-family: 'Manrope', sans-serif;
+    font-size: 1.1rem; font-weight: 600; cursor: pointer; font-family: 'Manrope', sans-serif;
     transition: background .2s, transform .15s, box-shadow .2s;
     box-shadow: 0 2px 12px rgba(5,150,105,.3);
   }
@@ -85,7 +85,7 @@
     min-height: 100vh;
     display: grid; grid-template-columns: 1fr 1fr;
     align-items: center; gap: 60px;
-    padding: 100px 5% 60px;
+    padding: 120px 5% 60px;
     background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 40%, #f9fafb 100%);
     position: relative; overflow: hidden;
   }
@@ -116,7 +116,7 @@
   .hero h1 em { color: var(--emerald); font-style: normal; }
 
   .hero p {
-    font-size: 1.05rem; color: var(--grey-light);
+    font-size: 1.15rem; color: var(--grey-light);
     line-height: 1.75; max-width: 480px; margin-bottom: 36px;
   }
 
@@ -145,8 +145,8 @@
     display: flex; gap: 32px; margin-top: 44px;
     padding-top: 32px; border-top: 1px solid var(--border);
   }
-  .stat-item h3 { font-size: 1.7rem; font-weight: 800; color: var(--dark); letter-spacing: -.02em; }
-  .stat-item p { font-size: .8rem; color: var(--grey-light); margin-top: 3px; }
+  .stat-item h3 { font-size: 1.8rem; font-weight: 800; color: var(--dark); letter-spacing: -.02em; }
+  .stat-item p { font-size: .9rem; color: var(--grey-light); margin-top: 3px; }
 
   /* Dashboard Mockup */
   .hero-visual { position: relative; }
@@ -248,7 +248,7 @@
     -webkit-text-fill-color: transparent;
   }
   .section-sub {
-    font-size: 1rem; color: var(--grey-light);
+    font-size: 1.1rem; color: var(--grey-light);
     max-width: 1000px; line-height: 1.8; margin: 0 auto;
   }
 
@@ -280,7 +280,7 @@
   }
 
   .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
-  .feature-card p { font-size: .9rem; color: var(--grey-light); line-height: 1.65; }
+  .feature-card p { font-size: 1rem; color: var(--grey-light); line-height: 1.65; }
 
   /* ── INTEGRATIONS ── */
   #integrations { background: white; }
@@ -294,7 +294,7 @@
   .int-box:hover { border-color: var(--emerald); }
 
   .int-box h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 12px; }
-  .int-box p { font-size: .92rem; color: var(--grey-light); line-height: 1.7; margin-bottom: 20px; }
+  .int-box p { font-size: 1.02rem; color: var(--grey-light); line-height: 1.7; margin-bottom: 20px; }
   .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip {
     padding: 5px 12px; background: white; border: 1px solid var(--border);
@@ -338,11 +338,11 @@
   .price-amount span { font-size: 1rem; font-weight: 400; color: #9ca3af; }
   .price-card.featured .price-amount span { color: rgba(255,255,255,.7); }
 
-  .price-desc { font-size: .88rem; color: #6b7280; margin: 14px 0 24px; line-height: 1.6; }
+  .price-desc { font-size: .98rem; color: #6b7280; margin: 14px 0 24px; line-height: 1.6; }
   .price-card.featured .price-desc { color: rgba(255,255,255,.8); }
 
   .price-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-  .price-features li { font-size: .88rem; color: #9ca3af; display: flex; gap: 10px; align-items: flex-start; }
+  .price-features li { font-size: .98rem; color: #9ca3af; display: flex; gap: 10px; align-items: flex-start; }
   .price-features li::before { content: '✓'; color: var(--emerald-light); font-weight: 700; flex-shrink: 0; }
   .price-card.featured .price-features li { color: rgba(255,255,255,.85); }
   .price-card.featured .price-features li::before { color: white; }
@@ -386,7 +386,7 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.03);
   }
   .method-text h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
-  .method-text p { font-size: 0.95rem; color: var(--grey-light); margin-bottom: 0; line-height: 1.5; }
+  .method-text p { font-size: 1.05rem; color: var(--grey-light); margin-bottom: 0; line-height: 1.5; }
 
   .contact-form-card {
     background: var(--white);
@@ -489,7 +489,7 @@
     background: white;
     padding: 0 24px;
     color: var(--grey-light);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     line-height: 1.6;
   }
   .faq-item.active .faq-answer { max-height: 300px; padding: 12px 24px 24px; }
@@ -506,7 +506,7 @@
   .dev-tag { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--emerald-light); margin-bottom: 12px; }
   .dev-card h2 { font-size: 2.2rem; font-weight: 800; color: white; letter-spacing: -.02em; margin-bottom: 6px; }
   .dev-title { font-size: 1rem; color: #6b7280; margin-bottom: 22px; }
-  .dev-bio { font-size: .92rem; color: #9ca3af; line-height: 1.75; margin-bottom: 28px; }
+  .dev-bio { font-size: 1.02rem; color: #9ca3af; line-height: 1.75; margin-bottom: 28px; }
 
   .tech-stack { display: flex; gap: 10px; flex-wrap: wrap; }
   .tech-pill {
@@ -521,7 +521,7 @@
   .dev-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .metric-box { background: #1f2937; border-radius: 16px; padding: 24px; border: 1px solid #374151; }
   .metric-box h4 { font-family: 'Manrope', sans-serif; font-size: 1.8rem; font-weight: 800; color: white; }
-  .metric-box p { font-size: .8rem; color: #6b7280; margin-top: 4px; }
+  .metric-box p { font-size: .9rem; color: #6b7280; margin-top: 4px; }
 
   /* ── FOOTER ── */
   footer {
@@ -534,7 +534,7 @@
     gap: 40px;
     margin-bottom: 60px;
   }
-  .footer-brand p { font-size: .9rem; color: #9ca3af; line-height: 1.6; margin-top: 20px; max-width: 320px; }
+  .footer-brand p { font-size: 1rem; color: #9ca3af; line-height: 1.6; margin-top: 20px; max-width: 320px; }
   .footer-social { display: flex; gap: 12px; margin-top: 24px; }
   .footer-social a {
     width: 36px; height: 36px; border-radius: 10px; background: #1f2937;
@@ -545,7 +545,7 @@
 
   .footer-col h4 { font-family: 'Manrope', sans-serif; font-size: 1rem; font-weight: 700; color: white; margin-bottom: 24px; }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 14px; }
-  .footer-col a { font-size: .9rem; color: #9ca3af; text-decoration: none; transition: color .2s; }
+  .footer-col a { font-size: 1rem; color: #9ca3af; text-decoration: none; transition: color .2s; }
   .footer-col a:hover { color: var(--emerald-light); }
 
   .footer-bottom {
@@ -618,7 +618,7 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; padding-top: 100px; }
+    .hero { grid-template-columns: 1fr; padding-top: 120px; }
     .hero-visual { display: none; }
     .pricing-grid, .features-grid { grid-template-columns: 1fr; }
     .int-grid, .demo-grid, .dev-card { grid-template-columns: 1fr; }
@@ -651,7 +651,6 @@
     <li><a href="#about">About</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#contact">Contact</a></li>
   </ul>
   <button class="btn-access" onclick="openModal()">Free Download</button>
 </nav>
@@ -725,8 +724,7 @@
 <section class="showcase" id="about">
   <div class="section-tag">Visual Experience</div>
   <h2 class="section-title">Designed for clarity.</h2>
-  <p class="section-sub">See how Expense Tracker simplifies complex financial data into beautiful, actionable insights.</p>
-  <p class="section-sub" style="margin-top: 24px;">Managing your finances doesn't have to be complicated. Whether you're tracking daily expenses, setting budgets, or planning for future goals, Expense Tracker is designed to make your life easier. With a clean, user-friendly interface and powerful features, you can finally take full control of your money – without any of the hassle.</p>
+  <p class="section-sub">Expense Tracker simplifies financial management with an intuitive interface for tracking spending and budgeting, offering actionable insights for effortless control.</p>
   <div class="showcase-grid">
     <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/a1/b3/91/a1b391be-c131-c15d-705c-56bd5e166ffe/Group_1004.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 1">
     <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/97/d1/38/97d138d7-bedc-663d-a699-81df45b9bea4/Group_1024.jpg/230x499bb.webp" class="showcase-img" alt="App Preview 2">
@@ -746,32 +744,32 @@
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-leaf"></i></div>
       <h3>Simple & Intuitive</h3>
-      <p>No more messy spreadsheets or confusing menus. We've stripped away the complexity to give you a clean interface that just works, right out of the box.</p>
+      <p>Ditch messy spreadsheets for a clean, intuitive interface that works instantly right out of the box.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-bolt"></i></div>
       <h3>Fast & Efficient</h3>
-      <p>Built for speed. Add transactions in seconds and get back to your life. Our optimized workflows ensure tracking your money never feels like a chore.</p>
+      <p>Log transactions in seconds with optimized workflows designed to save you time and effort.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-heart"></i></div>
       <h3>Enjoyable Experience</h3>
-      <p>Who says finance has to be boring? With beautiful animations and clear visual data, managing your budget becomes a satisfying daily habit.</p>
+      <p>Transform budgeting into a satisfying daily habit with beautiful animations and clear visual data.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-compass"></i></div>
       <h3>Financial Companion</h3>
-      <p>Managing money can feel overwhelming. We've built the ultimate companion to guide you through every step of your financial journey.</p>
+      <p>The ultimate guide to help you navigate every step of your financial journey with confidence.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-trophy"></i></div>
       <h3>Win with Your Money</h3>
-      <p>Whether you're a budgeting pro or just starting, we provide the tools you need to finally take control and win with your money.</p>
+      <p>Master your finances with powerful tools designed for everyone, from beginners to budgeting pros.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-users"></i></div>
       <h3>Tailored for You</h3>
-      <p>Built for real people with real financial needs. Our app adapts to your lifestyle, helping you track spending without any of the hassle.</p>
+      <p>A personalized experience that adapts to your lifestyle for seamless, hassle-free spending tracking.</p>
     </div>
   </div>
 </section>
@@ -785,32 +783,32 @@
     <div class="feature-card">
       <div class="feature-icon">⚡</div>
       <h3>Effortless Tracking</h3>
-      <p>Add and categorize your expenses in seconds. Stay on top of your spending effortlessly.</p>
+      <p>Add and categorize expenses in seconds to stay on top of your spending effortlessly.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📊</div>
       <h3>Beautiful Insights</h3>
-      <p>Get a clear picture of where your money is going with beautifully designed charts and graphs.</p>
+      <p>Visualize your spending with beautifully designed charts for instant financial clarity.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🏦</div>
       <h3>Unified Accounts</h3>
-      <p>Easily add bank accounts and credit cards so you can track all your finances in one place.</p>
+      <p>Link bank accounts and credit cards to manage all your finances in one central location.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🎯</div>
       <h3>Monthly Budgets</h3>
-      <p>Set monthly budgets to keep your spending on track. Monitor your limits and adjust as you go to reach your goals.</p>
+      <p>Set and monitor monthly budgets to keep spending on track and reach your goals faster.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">☁️</div>
       <h3>Multi-Device Sync</h3>
-      <p>With iCloud sync, your financial data is always at your fingertips, whether you're on your phone, tablet, or desktop.</p>
+      <p>Access your data anywhere with seamless sync across phone, tablet, and desktop.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📈</div>
       <h3>Advanced Analytics</h3>
-      <p>Unlock deeper insights with premium trend forecasting and comprehensive analysis of your spending patterns.</p>
+      <p>Unlock deeper insights with trend forecasting and comprehensive spending pattern analysis.</p>
     </div>
   </div>
 </section>
@@ -819,8 +817,7 @@
 <section id="pricing">
   <div class="section-tag">Pricing</div>
   <h2 class="section-title">Transparent pricing.<br>No surprises.</h2>
-  <p class="section-sub">From solo finance tracking to enterprise-scale deployments. Pick the plan that fits your world.</p>
-  <p class="section-sub" style="margin-top: 20px;">Upgrade for Premium Features! Unlock the full potential of Expense Tracker by upgrading to the premium version. Get access to advanced analytics, unlimited account tracking, and seamless iCloud sync so you can view and manage your finances across all your devices.</p>
+  <p class="section-sub">Choose the perfect plan for your needs. Upgrade to Premium for advanced analytics, unlimited account tracking, and seamless multi-device sync.</p>
   <div class="pricing-grid">
     <div class="price-card">
       <div class="price-tier">Starter</div>
@@ -875,7 +872,7 @@
   <div class="faq-container">
     <div class="faq-item">
       <button class="faq-question">How can Expense Tracker help me take control of my money? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">Our Spending Tracker & Money Manager is the ultimate tool for tracking expenses and managing your budget. It's designed to make your life easier by providing a clean, user-friendly interface that lets you take full control of your money without any of the hassle.</div>
+      <div class="faq-answer">Our intuitive tool simplifies expense tracking and budgeting, providing full financial control through a clean, hassle-free interface.</div>
     </div>
 
     <div class="faq-item">
