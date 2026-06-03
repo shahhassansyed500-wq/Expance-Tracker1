@@ -24,7 +24,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; font-size: 17.5px; }
 
   body {
     font-family: 'Inter', sans-serif;
@@ -39,7 +39,7 @@
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 5%;
+    padding: 0 1in;
     height: 80px;
     background: rgba(255,255,255,0.92);
     backdrop-filter: blur(16px);
@@ -62,9 +62,15 @@
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a {
     font-size: 1.15rem; font-weight: 500; color: var(--grey);
-    text-decoration: none; transition: color .2s;
+    text-decoration: none; 
+    transition: all 0.3s ease;
+    display: inline-block;
   }
-  .nav-links a:hover { color: var(--emerald); }
+  .nav-links a:hover { 
+    color: var(--emerald); 
+    font-weight: 700;
+    transform: translateY(-4px);
+  }
 
   .btn-access {
     background: var(--emerald); color: white;
@@ -85,7 +91,7 @@
     min-height: 100vh;
     display: grid; grid-template-columns: 1fr 1fr;
     align-items: center; gap: 60px;
-    padding: 120px 5% 60px;
+    padding: 120px 1in 60px;
     background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 40%, #f9fafb 100%);
     position: relative; overflow: hidden;
   }
@@ -214,7 +220,7 @@
   .float-badge .text strong { display: block; font-family: 'Manrope', sans-serif; font-size: .85rem; color: var(--dark); }
 
   /* ── SHOWCASE ── */
-  .showcase { background: var(--white); text-align: center; border-bottom: 1px solid var(--border); }
+  .showcase { background: var(--white); text-align: center; border-bottom: 1px solid var(--border); padding: 80px 0.5in; }
   .showcase-grid {
     display: flex; gap: 20px; overflow-x: auto; padding: 40px 0 0;
     scrollbar-width: none; -ms-overflow-style: none;
@@ -231,7 +237,7 @@
   .showcase-img:hover { transform: translateY(-10px); }
 
   /* ── SECTIONS ── */
-  section { padding: 80px 5%; }
+  section { padding: 80px 1in; }
 
   .section-tag {
     display: inline-block;
@@ -253,15 +259,17 @@
   }
 
   /* ── FEATURES ── */
-  #features { background: var(--white); }
+  #features { text-align: center; background: var(--white); }
+  #features .section-title { white-space: nowrap; }
+  #features .feature-card { text-align: left; }
 
   .features-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 24px; margin-top: 40px;
+    gap: 32px; margin-top: 40px;
   }
 
   .feature-card {
-    background: white; border-radius: 16px; padding: 32px;
+    background: white; border-radius: 16px; padding: 24px;
     border: 1px solid var(--border);
     transition: transform .25s, box-shadow .25s, border-color .25s;
     cursor: default;
@@ -281,6 +289,10 @@
 
   .feature-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
   .feature-card p { font-size: 1rem; color: var(--grey-light); line-height: 1.65; }
+
+  #benefit-driven { text-align: center; }
+  #benefit-driven .section-title { white-space: nowrap; }
+  #benefit-driven .feature-card { text-align: left; }
 
   /* ── INTEGRATIONS ── */
   #integrations { background: white; }
@@ -302,8 +314,9 @@
   }
 
   /* ── PRICING ── */
-  #pricing { background: var(--dark); }
+  #pricing { text-align: center; background: var(--dark); }
   #pricing .section-title { 
+    white-space: nowrap;
     background: linear-gradient(135deg, #ffffff 40%, var(--emerald-light) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -311,6 +324,7 @@
   #pricing .section-sub { color: #9ca3af; }
   #pricing .section-tag { color: var(--emerald-light); }
 
+  #pricing .price-card { text-align: left; }
   .pricing-grid {
     display: grid; grid-template-columns: repeat(3,1fr);
     gap: 24px; margin-top: 40px;
@@ -360,13 +374,11 @@
   .price-card.featured .btn-price:hover { background: var(--emerald-pale); }
 
   /* ── CONTACT SECTION ── */
-  #contact { background: var(--off-white); }
+  #contact { text-align: center; background: var(--off-white); }
   .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 60px;
+    display: flex;
+    justify-content: center;
     margin-top: 48px;
-    align-items: start;
   }
   .contact-method {
     display: flex;
@@ -394,6 +406,8 @@
     border-radius: 24px;
     border: 1px solid var(--border);
     box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+    text-align: left;
+    max-width: 600px;
   }
 
   /* ── DEMO ── */
@@ -432,26 +446,25 @@
   .btn-submit:hover { background: var(--emerald-dark); transform: translateY(-1px); }
 
   /* ── FAQ SECTION ── */
-  #faq { background: var(--white); }
+  #faq { text-align: center; background: var(--white); }
+  #faq .faq-item { text-align: left; }
   .faq-container { 
     max-width: 1000px; 
     margin: 56px auto 0; 
     display: flex; 
     flex-direction: column; 
     gap: 16px; 
-    align-items: flex-start; 
+    align-items: center; 
   }
   .faq-item {
     border: 1px solid var(--border);
-    border-radius: 16px;
+    border-radius: 10px;
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    width: fit-content;
-    max-width: 100%;
+    width: 80%;
     background: white;
   }
   .faq-item.active {
-    width: 100%;
     border-color: var(--emerald);
     box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
   }
@@ -525,7 +538,7 @@
 
   /* ── FOOTER ── */
   footer {
-    background: var(--dark); padding: 60px 5% 40px;
+    background: var(--dark); padding: 60px 1in 40px;
     border-top: 1px solid #1f2937;
   }
   .footer-grid {
@@ -618,18 +631,25 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
+    nav { padding: 0 5%; }
+    .hero { padding: 120px 5% 60px; }
+    section { padding: 60px 5%; }
+    .showcase { padding: 60px 5%; }
+    footer { padding: 40px 5%; }
     .hero { grid-template-columns: 1fr; padding-top: 120px; }
     .hero-visual { display: none; }
     .pricing-grid, .features-grid { grid-template-columns: 1fr; }
     .int-grid, .demo-grid, .dev-card { grid-template-columns: 1fr; }
-    .footer-grid { flex-direction: column; align-items: flex-start; gap: 32px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
     .footer-col { flex-direction: column; align-items: flex-start; gap: 12px; }
     .footer-col ul { flex-direction: column; gap: 10px; }
     .nav-links { display: none; }
-    #benefit-driven { grid-template-columns: 1fr; text-align: center; gap: 40px; }
-    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    #benefit-driven .section-title, #features .section-title, #pricing .section-title { white-space: normal; }
+    .contact-grid { flex-direction: column; align-items: center; }
+    .faq-item { width: 100%; }
   }
   @media (max-width: 600px) {
+    html { font-size: 16px; }
     .hero-stats { flex-wrap: wrap; gap: 20px; }
     .footer-grid { grid-template-columns: 1fr; }
     .modal { padding: 32px 24px; }
@@ -652,19 +672,13 @@
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
   </ul>
-  <button class="btn-access" onclick="openModal()">Free Download</button>
+  <button class="btn-access" onclick="openModal()"><i class="fab fa-apple" style="margin-right: 8px;"></i>Free Download</button>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-content">
     <h1>Take control of your<br><em>Money</em> like never Before!</h1>
-    <div class="hero-stats">
-      <div class="stat-item"><h3>10K+</h3><p>Verified Users</p></div>
-      <div class="stat-item"><h3>150+</h3><p>Currencies</p></div>
-      <div class="stat-item"><h3>5.0★</h3><p>App Rating</p></div>
-      <div class="stat-item"><h3>99.9%</h3><p>Uptime SLA</p></div>
-    </div>
   </div>
 
   <div class="hero-visual">
@@ -744,32 +758,32 @@
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-leaf"></i></div>
       <h3>Simple & Intuitive</h3>
-      <p>Ditch messy spreadsheets for a clean, intuitive interface that works instantly right out of the box.</p>
+      <p>Ditch complex spreadsheets for a clean interface that works right out of the box.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-bolt"></i></div>
       <h3>Fast & Efficient</h3>
-      <p>Log transactions in seconds with optimized workflows designed to save you time and effort.</p>
+      <p>Log transactions in seconds with workflows designed to save you time and effort.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-heart"></i></div>
       <h3>Enjoyable Experience</h3>
-      <p>Transform budgeting into a satisfying daily habit with beautiful animations and clear visual data.</p>
+      <p>Turn budgeting into a satisfying habit with beautiful visuals and clear data.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-compass"></i></div>
       <h3>Financial Companion</h3>
-      <p>The ultimate guide to help you navigate every step of your financial journey with confidence.</p>
+      <p>A reliable guide to help you navigate your financial journey with confidence.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-trophy"></i></div>
       <h3>Win with Your Money</h3>
-      <p>Master your finances with powerful tools designed for everyone, from beginners to budgeting pros.</p>
+      <p>Master your finances with tools designed for everyone, from beginners to pros.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon"><i class="fas fa-users"></i></div>
       <h3>Tailored for You</h3>
-      <p>A personalized experience that adapts to your lifestyle for seamless, hassle-free spending tracking.</p>
+      <p>Enjoy a personalized experience that adapts to your lifestyle for easy tracking.</p>
     </div>
   </div>
 </section>
@@ -777,38 +791,38 @@
 <!-- FEATURES -->
 <section id="features">
   <div class="section-tag">Global Features</div>
-  <h2 class="section-title">Everything your finances<br>need, worldwide.</h2>
+  <h2 class="section-title">Everything your finances need, worldwide.</h2>
   <p class="section-sub">Built for individuals, teams, and enterprises managing money across borders with precision and clarity.</p>
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">⚡</div>
       <h3>Effortless Tracking</h3>
-      <p>Add and categorize expenses in seconds to stay on top of your spending effortlessly.</p>
+      <p>Quickly log and categorize expenses to stay on top of your spending.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📊</div>
       <h3>Beautiful Insights</h3>
-      <p>Visualize your spending with beautifully designed charts for instant financial clarity.</p>
+      <p>See where your money goes with clear, beautifully designed visual charts.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🏦</div>
       <h3>Unified Accounts</h3>
-      <p>Link bank accounts and credit cards to manage all your finances in one central location.</p>
+      <p>Connect all your bank accounts and cards for a total financial overview.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">🎯</div>
       <h3>Monthly Budgets</h3>
-      <p>Set and monitor monthly budgets to keep spending on track and reach your goals faster.</p>
+      <p>Set limits and monitor your spending to reach your savings goals faster.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">☁️</div>
       <h3>Multi-Device Sync</h3>
-      <p>Access your data anywhere with seamless sync across phone, tablet, and desktop.</p>
+      <p>Keep your data in sync across all devices for access anytime, anywhere.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">📈</div>
       <h3>Advanced Analytics</h3>
-      <p>Unlock deeper insights with trend forecasting and comprehensive spending pattern analysis.</p>
+      <p>Identify spending patterns and get forecasts with AI-driven insights.</p>
     </div>
   </div>
 </section>
@@ -816,7 +830,7 @@
 <!-- PRICING -->
 <section id="pricing">
   <div class="section-tag">Pricing</div>
-  <h2 class="section-title">Transparent pricing.<br>No surprises.</h2>
+  <h2 class="section-title">Transparent pricing. No surprises.</h2>
   <p class="section-sub">Choose the perfect plan for your needs. Upgrade to Premium for advanced analytics, unlimited account tracking, and seamless multi-device sync.</p>
   <div class="pricing-grid">
     <div class="price-card">
@@ -872,32 +886,32 @@
   <div class="faq-container">
     <div class="faq-item">
       <button class="faq-question">How can Expense Tracker help me take control of my money? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">Our intuitive tool simplifies expense tracking and budgeting, providing full financial control through a clean, hassle-free interface.</div>
+      <div class="faq-answer">Take control with intuitive tools designed for simple tracking and budgeting.</div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">Is it difficult to keep up with daily tracking? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">Not at all. You can add and categorize your expenses in seconds, allowing you to stay on top of your spending effortlessly and without complexity.</div>
+      <div class="faq-answer">Log transactions in seconds with our fast and hassle-free interface.</div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">Can I see a visual breakdown of my spending? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">Yes! You get a clear picture of where your money is going with beautifully designed charts and graphs, helping you visualize progress towards your future goals.</div>
+      <div class="faq-answer">Visualize your spending patterns with clear, beautifully designed charts.</div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">Can I track my credit cards and multiple bank accounts? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">Easily. You can add bank accounts and credit cards to track all your finances in one place, whether you are a budgeting pro or just starting out.</div>
+      <div class="faq-answer">Connect multiple bank accounts and cards for a total financial overview.</div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">How does budgeting work in the app? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">You can set monthly budgets to keep your spending on track. It is designed for real people with real financial needs, making money management enjoyable.</div>
+      <div class="faq-answer">Set simple monthly limits to keep your spending and savings on track.</div>
     </div>
 
     <div class="faq-item">
       <button class="faq-question">What are the benefits of upgrading to Premium? <span class="faq-icon"><i class="fas fa-plus"></i></span></button>
-      <div class="faq-answer">Upgrading unlocks the full potential of Expense Tracker. You get access to advanced analytics, unlimited account tracking, and seamless iCloud sync across your phone, tablet, and desktop.</div>
+      <div class="faq-answer">Unlock advanced analytics, unlimited accounts, and seamless multi-device sync.</div>
     </div>
   </div>
 </section>
@@ -905,34 +919,10 @@
 <!-- CONTACT SECTION -->
 <section id="contact">
   <div class="section-tag">Get in Touch</div>
-  <h2 class="section-title" style="margin-left: 0;">Have questions? Let's talk.</h2>
-  <p class="section-sub" style="margin-left: 0;">Our team is here to help you optimize your financial workflow.</p>
+  <h2 class="section-title">Have questions? Let's talk.</h2>
+  <p class="section-sub">Our team is here to help you optimize your financial workflow.</p>
 
   <div class="contact-grid">
-    <div class="contact-info">
-      <div class="contact-method">
-        <div class="method-icon"><i class="fas fa-envelope"></i></div>
-        <div class="method-text">
-          <h4>Email Us</h4>
-          <p>info@thepenguin.tech</p>
-        </div>
-      </div>
-      <div class="contact-method">
-        <div class="method-icon"><i class="fas fa-map-marker-alt"></i></div>
-        <div class="method-text">
-          <h4>Our Office</h4>
-          <p>DHA, Peshawar</p>
-        </div>
-      </div>
-      <div class="contact-method">
-        <div class="method-icon"><i class="fas fa-clock"></i></div>
-        <div class="method-text">
-          <h4>Support Hours</h4>
-          <p>Monday — Friday: 9AM – 6PM PST</p>
-          <p>Weekend: Emergency Support Only</p>
-        </div>
-      </div>
-    </div>
 
     <div class="contact-form-card">
       <div class="form-row">
